@@ -5,7 +5,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const errorHandler = require('./errorHandler')
-const bookmarksRouter = require('./book/book-router')
+const inventoryRouter=require('./inventory/inventory-router')
 
 const app = express()
 
@@ -15,12 +15,11 @@ app.use(morgan((NODE_ENV === 'production') ? 'tiny' : 'common', {
 app.use(cors())
 app.use(helmet())
 
-app.use(bookmarksRouter)
 
 app.get('/', (req, res) => {
   res.send('Hello, world!')
 })
-
+app.use("/inventory", inventoryRouter);
 app.use(errorHandler)
 
 module.exports = app
